@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  backend:
+    build: .
+    container_name: legalrag_backend
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    environment:
+      - DEBUG=True
+      - NEO4J_URI=bolt://neo4j:7687
+      - NEO4J_USERNAME=neo4j
+      - NEO4J_PASSWORD=12345678
+    depends_on:
+      - neo4j
+    networks:
+      - legalrag_net
+
+  neo4j:
+    image: neo4j:5.14.0
+    container_name: legalrag_graph_db
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    environment:
+
+      - NEO4J_AUTH=neo4j/12345678
+    volumes:
+      - neo4j_data:/data
+    networks:
+      - legalrag_net
+
+volumes:
+  neo4j_data:
+
+networks:
+  legalrag_net:

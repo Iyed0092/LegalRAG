@@ -1,0 +1,25 @@
+# --- Core Backend ---
+Django>=5.0.0
+djangorestframework>=3.14.0
+python-dotenv>=1.0.0
+gunicorn>=21.2.0
+django-cors-headers>=4.3.1
+
+# --- Vector Database ---
+chromadb>=0.4.22
+
+# --- Graph Database ---
+neo4j>=5.14.0
+
+# --- AI & NLP ---
+# NOTE: On retire torch d'ici pour l'installer manuellement en version CPU dans le Dockerfile
+sentence-transformers>=2.2.2
+transformers>=4.36.0
+accelerate>=0.25.0
+
+# --- Data Processing ---
+pypdf>=3.17.0
+langchain-text-splitters
+pandas>=2.1.0
+numpy>=1.26.0
+tqdm

@@ -1,0 +1,21 @@
+# --- SÉCURITÉ (Secrets) ---
+.env
+.env.*
+*.pyc
+__pycache__/
+db.sqlite3
+
+# --- FICHIERS LOURDS & DONNÉES ---
+# Ignore TOUT ce qui est dans le dossier data (Modèles, Chroma, Neo4j, PDFs...)
+data/
+
+# Ignorer les fichiers uploadés à la racine ou ailleurs
+raw_pdfs/
+media/
+*.pdf
+
+# --- SYSTÈME ---
+.DS_Store
+venv/
+.idea/
+.vscode/
