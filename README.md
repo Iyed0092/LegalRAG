@@ -34,6 +34,66 @@ The system follows a modular ETL (Extract, Transform, Load) and RAG pipeline:
 3.  **Retrieval:** The engine performs a parallel search (Vector + Graph) to gather the most relevant context.
 4.  **Generation:** The **FLAN-T5** model synthesizes the answer based *strictly* on the retrieved context.
 
+
+
+## 📂 Project Structure
+
+```bash
+legal_rag_project/
+├── .env                       # Environment variables (API Keys, Neo4j/Chroma URLs)
+├── .gitignore
+├── README.md
+├── docker-compose.yml         # Orchestration (Django + Neo4j + Chroma + Redis)
+├── Dockerfile                 # Django Backend Image
+├── requirements.txt           # Python Dependencies (Django, DRF, ChromaDB, Neo4j, etc.)
+├── manage.py                  # Django CLI
+│
+├── config/                    # Global Project Config
+│   ├── __init__.py
+│   ├── asgi.py
+│   ├── settings.py            # Project Settings
+│   ├── urls.py                # Main URL Router
+│   └── wsgi.py
+│
+├── apps/                      # Functional Modules (Domain Services)
+│   ├── __init__.py
+│   │
+│   ├── ingestion/             # MODULE 1: ETL & Indexing
+│   │   ├── __init__.py
+│   │   ├── apps.py
+│   │   ├── models.py          # SQL Model for file tracking (DocumentMetadata)
+│   │   ├── services/
+│   │   │   ├── pdf_parser.py  # Text Extraction (PyPDF/LangChain)
+│   │   │   ├── chunker.py     # Semantic Chunking
+│   │   │   └── loader.py      # Orchestrator sending data to Chroma & Neo4j
+│   │   └── views.py           # File Upload API
+│   │
+│   ├── rag_engine/            # MODULE 2: The Brain (Retrieval + LLM)
+│   │   ├── __init__.py
+│   │   ├── apps.py
+│   │   ├── connectors/        # Database Connectors
+│   │   │   ├── vector_store.py # ChromaDB Wrapper + SentenceTransformers
+│   │   │   └── graph_store.py  # Neo4j Wrapper (Cypher queries)
+│   │   ├── llm/
+│   │   │   └── flan_t5.py      # Inference Logic (HuggingFace Pipeline)
+│   │   ├── logic/
+│   │   │   └── hybrid_search.py # Hybrid Fusion Logic (Vector + Graph)
+│   │   └── views.py            # Q&A API (/ask)
+│   │
+│   └── evaluation/            # MODULE 3: Benchmarking (Recall@5)
+│       ├── __init__.py
+│       ├── scripts/
+│       │   ├── generate_ground_truth.py
+│       │   └── calculate_recall.py
+│       └── metrics.py
+│
+└── data/                      # Local Storage (Git Ignored)
+    ├── raw_pdfs/              # Raw legislative PDFs
+    └── chroma_db/             # ChromaDB Persistence
+
+
+```
+
 ## 🛠️ Installation & Getting Started
 
 ### Prerequisites
@@ -71,6 +131,30 @@ User Interface (Streamlit): Open http://localhost:8501
 Backend API (Django): Open http://localhost:8000/api/v1/
 
 Neo4j Browser: Open http://localhost:7474 (User: neo4j, Password: password)
+
+## 🔧 Tech Stack
+
+| Category | Technologies |
+| :--- | :--- |
+| **Backend** | Python, Django REST Framework |
+| **AI / ML** | PyTorch, HuggingFace Transformers, LangChain, FLAN-T5 |
+| **Databases** | Neo4j (Graph), ChromaDB (Vector) |
+| **Frontend** | Streamlit |
+| **DevOps** | Docker, Docker Compose, GitHub Actions (CI/CD) |
+
+## 📜 License
+
+This project is intended for educational purposes as a personal project done by me.
+Distributed under the **MIT License**.
+
+## 👤 Author
+
+**Iyed Mekki**
+* **LinkedIn:** [linkedin.com/in/iyed-mekki](https://www.linkedin.com/in/iyed-mekki-265002384/)
+* **GitHub:** [github.com/Iyed0092](https://github.com/Iyed0092)
+
+
+
 
 
 
