@@ -17,7 +17,9 @@ This dual approach significantly reduces hallucinations and ensures that answers
 
 ## 🚀 Key Features
 
-* **🕸️ Hybrid Search Engine:** Combines **Vector Embeddings** (Sentence-Transformers) for semantic nuances and **Graph Traversal** (Cypher queries) for structural context.
+* **🕸️ Hybrid Search & High-Precision Reranking:** Combines **Vector Embeddings (Sentence-Transformers)** for semantic nuances and **Graph Traversal (Cypher queries)** for structural context. Recently enhanced with a **Cross-Encoder architecture** to re-rank results, ensuring maximum accuracy for critical legal queries.
+* **🧠 Context-Aware Ingestion Pipeline:** Robust PDF processing that utilizes **Mistral NeMo 14B (installed locally)** for intelligent, **context-aware chunking**. This ensures that text segments retain their semantic meaning before being indexed into the vector and graph databases.
+* **🤖 Powerful Generation Engine:** Leverages the advanced reasoning capabilities of **Llama 3 70B (Groq API)** to process the augmented prompt, synthesizing the final answer to ensure high-quality, legally grounded responses. 
 * **🛡️ Hallucination Guardrails:** Implements a strict prompt engineering strategy ("Strict Mode") to prevent the LLM from inventing facts.
 * **📄 Automated Ingestion:** Robust PDF processing pipeline that extracts text, chunks it intelligently, and indexes it into both databases simultaneously.
 * **🐳 Microservices Architecture:** Fully containerized using **Docker Compose** (Django API, Neo4j, ChromaDB, Streamlit).
@@ -152,6 +154,7 @@ Distributed under the **MIT License**.
 **Iyed Mekki**
 * **LinkedIn:** [linkedin.com/in/iyed-mekki](https://www.linkedin.com/in/iyed-mekki-265002384/)
 * **GitHub:** [github.com/Iyed0092](https://github.com/Iyed0092)
+
 
 
 
