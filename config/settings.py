@@ -122,3 +122,5 @@ GENERATION_CONFIG = {
     "repetition_penalty": 1.2,  
     "no_repeat_ngram_size": 3   
 }
+
+GROQ_API_KEY = ""

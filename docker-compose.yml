@@ -8,25 +8,45 @@ services:
       - .:/app
     ports:
       - "8000:8000"
+    
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
     environment:
       - DEBUG=True
       - NEO4J_URI=bolt://neo4j:7687
       - NEO4J_USERNAME=neo4j
       - NEO4J_PASSWORD=12345678
+      - GROQ_API_KEY=${GROQ_API_KEY} 
+      
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
+
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    
     depends_on:
       - neo4j
     networks:
       - legalrag_net
 
-  neo4j:
+  neo4j:  
     image: neo4j:5.14.0
     container_name: legalrag_graph_db
     ports:
-      - "7474:7474"
-      - "7687:7687"
+      - "7474:7474" 
+      - "7687:7687" 
     environment:
-
       - NEO4J_AUTH=neo4j/12345678
+      - NEO4J_PLUGINS=["apoc"]
+      - NEO4J_dbms_security_procedures_unrestricted=apoc.*
+      - NEO4J_apoc_import_file_enabled=true
+      - NEO4J_apoc_export_file_enabled=true
     volumes:
       - neo4j_data:/data
     networks:
